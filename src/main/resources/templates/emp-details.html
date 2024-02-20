@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Employee Details</title>
+    <style>
+        /* Style for the circular info icon */
+        .info-icon {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            margin-left: 10px; /* Adjust spacing between icon and input */
+        }
+
+        /* Tooltip container */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Tooltip text on the right side */
+        .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 100%; /* Position it to the right of the info icon */
+            transform: translateY(-50%); /* Center vertically */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Show the tooltip text when hovering over the info icon */
+        .info-icon:hover + .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Adjust text alignment for labels and inputs */
+        .form-field label {
+            display: inline-block;
+            width: 150px; /* Set the width based on your design */
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 200px; /* Set the width based on your design */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include header and navigation -->
+    <div th:include="emp-header"></div>
+    <div th:include="emp-navigation"></div>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor: pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+    <div class="w3-main" style="margin-left: 250px">
+        <div class="w3-row w3-padding-64">
+            <div class="w3-twothird w3-container">
+                <h1>Employee Details</h1>
+                <form action="#" th:action="@{/employee/details}" th:object="${employee}" method="post" onsubmit="return validateDates()">
+                    <!-- Name -->
+                    <div class="form-field tooltip">
+                        <label for="name"> Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="info-icon">&#9432;</div>
+                        <div class="tooltiptext">Enter your Name.</div>
+                    </div>
+
+                    <br> <br>
+
+                    <!-- Email -->
+                    <div class="form-field tooltip">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="info-icon">&#9432;</div>
+                        <div class="tooltiptext">Enter a valid email address.</div>
+                    </div>
+
+                    <br> <br>
+
+                    <!-- Mobile Number -->
+                    <div class="form-field tooltip">
+                        <label for="mobilenumber">Mobile Number:</label>
+                        <input type="tel" id="mobilenumber" name="mobilenumber" pattern="[0-9]{10}" placeholder="xxxxxxxxxx" required>
+                        <div class="info-icon">&#9432;</div>
+                        <div class="tooltiptext">Enter your mobile number.</div>
+                    </div>
+
+                    <!-- Button Container -->
+                    <div class="button-container">
+                        <button type="submit">Submit</button>
+                        <button type="reset" class="clear-button">Clear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
